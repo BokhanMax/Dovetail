@@ -139,7 +139,6 @@
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 
     <div class="container">
@@ -170,12 +169,12 @@
         <div class="col-lg-2 col-6 footer-links">
           <h4>Our Services</h4>
           <ul>
-            <li><a href="#">Storage</a></li>
-            <li><a href="#">Logistics</a></li>
-            <li><a href="#">Cargo</a></li>
-            <li><a href="#">Trucking</a></li>
-            <li><a href="#">Warehousing</a></li>
-            <li><a href="#">Packaging</a></li>
+            <li><a href="/">Storage</a></li>
+            <li><a href="/">Logistics</a></li>
+            <li><a href="/">Cargo</a></li>
+            <li><a href="/">Trucking</a></li>
+            <li><a href="/">Warehousing</a></li>
+            <li><a href="/">Packaging</a></li>
           </ul>
         </div>
 
@@ -196,33 +195,80 @@
 
     <div class="container mt-4">
       <div class="copyright">
-        &copy; Copyright <strong><span>Dovetail</span></strong> © 2024. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/logis-bootstrap-logistics-website-template/ -->
-        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+        &copy; Copyright <strong><span>Dovetail</span></strong> © 2025. All Rights Reserved
       </div>
     </div>
 
-  </footer><!-- End Footer -->
-  <!-- End Footer -->
+  </footer>
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
+  <script>
+    var form = document.getElementById("contact-form");
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+    async function handleSubmit(event) {
+      event.preventDefault();
+      var status = document.getElementById("messagesent");
+      var data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          status.innerHTML = "Thanks for your message!";
+          form.reset()
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+            } else {
+              status.innerHTML = "Oops! There was a problem submitting your form"
+            }
+          })
+        }
+      }).catch(error => {
+        status.innerHTML = "Oops! There was a problem submitting your form"
+      });
+    }
+    form.addEventListener("submit", handleSubmit)
+</script>
+
+<script src="assets/js/main.js"></script>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://www.schema.org",
+    "@type": "ProfessionalService",
+    "name": "Dovetail Express",
+    "url": "https://dovetailexpress.site/",
+    "logo": "https://dovetailexpress.site/assets/img/logo.png",
+    "image": "https://dovetailexpress.site/assets/img/ogimage.png",
+    "description": "Dovetail Express is a logistic and trucking service company. We work 24/7 especially for your business and comfort. Our specialists is ready to help you and provide any information for your cargos.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "103/1 Głogowska",
+      "addressLocality": "Poznań",
+      "addressRegion": "Województwo wielkopolskie",
+      "postalCode": "60-266",
+      "addressCountry": "Poland"
+    },
+    "openingHours": "Mo, Tu, We, Th, Fr, Sa, Su 01:00-23:30",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+48 61 856 27 32"
+    }
+  }
+</script>
 
 </body>
 
